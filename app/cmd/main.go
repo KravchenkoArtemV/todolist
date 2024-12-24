@@ -15,8 +15,11 @@ const (
 )
 
 func main() {
-	config.LoadEnv()
-
+	config.LoadEnv()       // загружаем переменные окружения
+	config.MakeDB()        // запуск БД
+	defer config.CloseDB() // закрываем бд
+	
+	// проверка порта
 	port := os.Getenv("TODO_PORT")
 	if port == "" {
 		port = defaultPort
