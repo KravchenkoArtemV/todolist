@@ -14,7 +14,7 @@ var DB *sql.DB
 
 // загрузка переменных окружения
 func LoadEnv() {
-	err := godotenv.Load()
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatalf("Ошибка загрузки .env файла: %v", err)
 	}
@@ -57,17 +57,16 @@ func MakeDB() {
 // создаем таблицы и индексы в базе данных
 func createTable(db *sql.DB) error {
 	query := `
-	CREATE TABLE IF NOT EXISTS scheduler (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		date TEXT NOT NULL,
-		title TEXT NOT NULL,
-		comment TEXT,
-		repeat TEXT CHECK (LENGTH(repeat) <= 128)
-	);
+    CREATE TABLE IF NOT EXISTS scheduler (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date TEXT NOT NULL,
+        title TEXT NOT NULL,
+        comment TEXT,
+        repeat TEXT CHECK (LENGTH(repeat) <= 128)
+    );
 
-	CREATE INDEX IF NOT EXISTS idx_date ON scheduler (date);
-	`
-
+    CREATE INDEX IF NOT EXISTS idx_date ON scheduler (date);
+    `
 	_, err := db.Exec(query)
 	return err
 }
@@ -77,7 +76,7 @@ func CloseDB() {
 	if DB != nil {
 		err := DB.Close()
 		if err != nil {
-			log.Fatalf("Ошибка закрытия БД: %v", err)
+			log.Printf("Ошибка закрытия БД: %v", err)
 		}
 		log.Println("Соединение с БД закрыто")
 	}

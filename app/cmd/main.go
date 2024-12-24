@@ -9,7 +9,7 @@ import (
 	"todolist/app/config"
 )
 
-const (
+var (
 	defaultPort = "7540"
 	webDir      = "./web"
 )
@@ -18,7 +18,7 @@ func main() {
 	config.LoadEnv()       // загружаем переменные окружения
 	config.MakeDB()        // запуск БД
 	defer config.CloseDB() // закрываем бд
-	
+
 	// проверка порта
 	port := os.Getenv("TODO_PORT")
 	if port == "" {
