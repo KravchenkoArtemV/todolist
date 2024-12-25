@@ -69,9 +69,9 @@ func calculateTargetDate(now, taskDate time.Time, days []int, allowedMonths []in
 			continue
 		}
 
-		// Обрабатываем массив дней
+		// обрабатка массива дней
 		for _, day := range days {
-			// итоговая дата
+			// целевая дата
 			var targetDate time.Time
 
 			// для отрицательных дней
@@ -124,7 +124,7 @@ func MonthCheck(now time.Time, taskDate time.Time, rules []string) (string, erro
 		return "", err
 	}
 
-	// парсим сами месяцы, если они указаны
+	// парсим месяца, если они указаны
 	var months []int
 	if len(rules) == 3 {
 		months, err = parseMonth(rules[2])
@@ -133,7 +133,7 @@ func MonthCheck(now time.Time, taskDate time.Time, rules []string) (string, erro
 		}
 	}
 
-	// Проверка корректности отрицательных дней
+	// проверка корректности отрицательных дней
 	for _, day := range days {
 		if day < -2 || day == 0 || day > 31 {
 			return "", errors.New("некорректный день в правиле повторения")

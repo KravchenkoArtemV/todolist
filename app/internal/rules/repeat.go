@@ -24,20 +24,20 @@ func NextDate(nowStr, dateStr, repeat string) (string, error) {
 		return "", errors.New("неверный формат даты задачи")
 	}
 
-	parts := strings.Split(repeat, " ")
-	if len(parts) < 1 {
+	partsRepeat := strings.Split(repeat, " ")
+	if len(partsRepeat) < 1 {
 		return "", errors.New("некорректное правило")
 	}
 
-	switch parts[0] {
+	switch partsRepeat[0] {
 	case "d":
-		return DayCheck(now, startDate, parts)
+		return DayCheck(now, startDate, partsRepeat)
 	case "w":
-		return WeekCheck(now, startDate, parts)
+		return WeekCheck(now, startDate, partsRepeat)
 	case "y":
-		return YearCheck(now, startDate, parts)
+		return YearCheck(now, startDate, partsRepeat)
 	case "m":
-		return MonthCheck(now, startDate, parts)
+		return MonthCheck(now, startDate, partsRepeat)
 	default:
 		return "", errors.New("некорректное правило")
 	}
