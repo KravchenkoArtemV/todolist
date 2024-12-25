@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"todolist/app/config"
+	"todolist/app/internal/handlers"
 )
 
 var (
@@ -30,6 +31,9 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
+	// гет обработчик
+	r.Get("/api/nextdate", handlers.NextDateHandler)
+	
 	// добавляем обработчик файлов
 	r.Handle("/*", http.FileServer(http.Dir(webDir)))
 
