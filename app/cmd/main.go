@@ -7,16 +7,20 @@ import (
 	"net/http"
 	"os"
 	"todolist/app/config"
+	"todolist/app/internal/handlers"
 )
 
-const (
+var (
 	defaultPort = "7540"
 	webDir      = "./web"
 )
 
 func main() {
-	config.LoadEnv()
+	config.LoadEnv()       // загружаем переменные окружения
+	config.MakeDB()        // запуск БД
+	defer config.CloseDB() // закрываем бд
 
+	// проверка порта
 	port := os.Getenv("TODO_PORT")
 	if port == "" {
 		port = defaultPort
@@ -27,6 +31,9 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
+	// гет обработчик
+	r.Get("/api/nextdate", handlers.NextDateHandler)
+	
 	// добавляем обработчик файлов
 	r.Handle("/*", http.FileServer(http.Dir(webDir)))
 
