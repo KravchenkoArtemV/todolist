@@ -31,9 +31,9 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	// гет обработчик
 	r.Get("/api/nextdate", handlers.NextDateHandler)
-	
+	r.Post("/api/task", handlers.PostTask)
+
 	// добавляем обработчик файлов
 	r.Handle("/*", http.FileServer(http.Dir(webDir)))
 

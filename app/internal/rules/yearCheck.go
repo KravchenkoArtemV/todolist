@@ -12,5 +12,5 @@ func YearCheck(now, startDate time.Time, parts []string) (string, error) {
 	for nextDate.Before(now) {
 		nextDate = nextDate.AddDate(1, 0, 0)
 	}
-	return nextDate.Format(formatTime), nil
+	return nextDate.Format(FormatTime), nil
 }

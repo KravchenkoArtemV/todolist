@@ -149,7 +149,7 @@ func MonthCheck(now time.Time, taskDate time.Time, rules []string) (string, erro
 		// проверяем дни месяца
 		targetDate := calculateTargetDate(now, taskDate, days, months)
 		if targetDate.After(now) {
-			return targetDate.Format("20060102"), nil
+			return targetDate.Format(FormatTime), nil
 		}
 		// Переходим к следующему месяцу
 		taskDate = taskDate.AddDate(0, 1, 0)

@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var formatTime = "20060102"
+var FormatTime = "20060102"
 
 // вычисляет следующую дату в зависимости от правила повторения
 func NextDate(nowStr, dateStr, repeat string) (string, error) {
@@ -16,13 +16,13 @@ func NextDate(nowStr, dateStr, repeat string) (string, error) {
 	}
 
 	// парсим текущую дату из строки
-	now, err := time.Parse(formatTime, nowStr)
+	now, err := time.Parse(FormatTime, nowStr)
 	if err != nil {
 		return "", errors.New("неверный формат текущей даты")
 	}
 
 	// парсим начальную дату задачи из строки
-	startDate, err := time.Parse(formatTime, dateStr)
+	startDate, err := time.Parse(FormatTime, dateStr)
 	if err != nil {
 		return "", errors.New("неверный формат даты задачи")
 	}

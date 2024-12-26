@@ -41,7 +41,7 @@ func WeekCheck(now time.Time, taskDate time.Time, rules []string) (string, error
 		// проверяем входит ли текущий день недели в мапу допустимых значений
 		if weekdaysMap[taskDate.Weekday()] {
 			if taskDate.After(now) { // если дата задачи позже текущей, возвращаем её
-				return taskDate.Format("20060102"), nil
+				return taskDate.Format(FormatTime), nil
 			}
 		}
 		// если текущий день не подходит переходим к следующему

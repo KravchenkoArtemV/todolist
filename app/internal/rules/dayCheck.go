@@ -21,5 +21,5 @@ func DayCheck(now, startDate time.Time, parts []string) (string, error) {
 	for nextDate.Before(now) {
 		nextDate = nextDate.AddDate(0, 0, days)
 	}
-	return nextDate.Format(formatTime), nil
+	return nextDate.Format(FormatTime), nil
 }
