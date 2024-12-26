@@ -39,6 +39,11 @@ type Response struct {
 	Error string `json:"error"`
 }
 
+// структура ответа по слайсу задач
+type TaskResponse struct {
+	Tasks []Task `json:"tasks"`
+}
+
 func PostTask(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "метод не поддерживается", http.StatusMethodNotAllowed)
@@ -124,4 +129,41 @@ func PostTask(w http.ResponseWriter, r *http.Request) {
 	// Отправляем успешный ответ с ID задачи
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"id": idResp})
+}
+
+func GetTaskHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusBadRequest)
+	}
+	// SQL-запрос для получения ближайших задач
+	query := "SELECT date, title, comment, repeat FROM scheduler ORDER BY date ASC LIMIT 50"
+
+	// Выполняем запрос к базе данных
+	rows, err := config.DB.Query(query)
+	if err != nil {
+		http.Error(w, `{"error": "Ошибка выполнения запроса к БД"}`, http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	// cканируем строки результата
+	var tasks []Task
+	for rows.Next() {
+		var task Task
+		if err := rows.Scan(&task.Date, &task.Title, &task.Comment, &task.Repeat); err != nil {
+			http.Error(w, `{"error": "Ошибка обработки результата"}`, http.StatusInternalServerError)
+			return
+		}
+		// добавляем в слайс готовую задачу
+		tasks = append(tasks, task)
+	}
+
+	// проверка задач, если нет, возвращаем пустой срез
+	if tasks == nil {
+		tasks = []Task{}
+	}
+
+	// возвращаем задачи в JSONе
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(TaskResponse{Tasks: tasks})
 }

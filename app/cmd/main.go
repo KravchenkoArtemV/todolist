@@ -33,6 +33,7 @@ func main() {
 
 	r.Get("/api/nextdate", handlers.NextDateHandler)
 	r.Post("/api/task", handlers.PostTask)
+	r.Get("/api/tasks", handlers.GetTaskHandler)
 
 	// добавляем обработчик файлов
 	r.Handle("/*", http.FileServer(http.Dir(webDir)))
