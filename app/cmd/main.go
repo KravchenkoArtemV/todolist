@@ -36,6 +36,7 @@ func main() {
 	r.Get("/api/tasks", handlers.GetTasks)
 	r.Get("/api/task", handlers.GetTask)
 	r.Put("/api/task", handlers.PutTask)
+	r.Post("/api/task/done", handlers.DoneTask)
 
 	// добавляем обработчик файлов
 	r.Handle("/*", http.FileServer(http.Dir(webDir)))
