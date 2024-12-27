@@ -41,7 +41,7 @@ func DoneTask(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-
+	
 	// проверяем, является ли задача периодической
 	if task.Repeat == "" {
 		// если задача одноразовая, удаляем её из базы
