@@ -64,7 +64,7 @@ func PostTask(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	// проверяем правило по умолчанию
+	// проверяем правило повторения
 	if task.Repeat != "" {
 		_, err := rules.NextDate(nowDate, task.Date, task.Repeat)
 		if err != nil {
