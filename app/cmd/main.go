@@ -31,16 +31,24 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	r.Get("/api/nextdate", handlers.NextDate)
-	r.Post("/api/task", handlers.PostTask)
-	r.Get("/api/tasks", handlers.GetTasks)
-	r.Get("/api/task", handlers.GetTask)
-	r.Put("/api/task", handlers.PutTask)
-	r.Post("/api/task/done", handlers.DoneTask)
-	r.Delete("/api/task", handlers.RemoveTask)
-
-	// добавляем обработчик файлов
 	r.Handle("/*", http.FileServer(http.Dir(webDir)))
+
+	// обработчик для авторизации
+	r.Post("/api/signin", handlers.SignIn)
+
+	// защищенные маршруты будут прогоняться через токен
+	r.Route("/api", func(r chi.Router) {
+		// добавляем middleware
+		r.Use(handlers.Auth)
+
+		r.Get("/nextdate", handlers.NextDate)
+		r.Post("/task", handlers.PostTask)
+		r.Get("/tasks", handlers.GetTasks)
+		r.Get("/task", handlers.GetTask)
+		r.Put("/task", handlers.PutTask)
+		r.Post("/task/done", handlers.DoneTask)
+		r.Delete("/task", handlers.RemoveTask)
+	})
 
 	// старт сервера
 	log.Printf("Сервер запущен на http://localhost:%s/", port)
