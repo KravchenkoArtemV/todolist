@@ -78,6 +78,7 @@ var Token = ""
   todo-list-app
 - docker cp .env todo-list-app:/app/.env
 ```
+screenshot экрана в корне проекта
 ___
 
 Выполненные задачи со звёздочкой (реализованы все):
