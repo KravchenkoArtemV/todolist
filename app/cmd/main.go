@@ -16,9 +16,9 @@ var (
 )
 
 func main() {
-	config.LoadEnv()       // загружаем переменные окружения
-	config.MakeDB()        // запуск БД
-	defer config.CloseDB() // закрываем бд
+	config.LoadEnv()
+	config.MakeDB()
+	defer config.CloseDB()
 
 	// проверка порта
 	port := os.Getenv("TODO_PORT")
