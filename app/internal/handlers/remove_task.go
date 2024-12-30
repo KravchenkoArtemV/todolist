@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"github.com/go-chi/chi/v5"
 	"net/http"
 	"todolist/app/config"
+
+	"github.com/go-chi/chi/v5"
 )
 
 // обработчик для удаления задачи

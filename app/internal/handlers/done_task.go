@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"database/sql"
-	"github.com/go-chi/chi/v5"
 	"net/http"
 	"todolist/app/config"
 	"todolist/app/internal/rules"
+
+	"github.com/go-chi/chi/v5"
 )
 
 func DoneTask(w http.ResponseWriter, r *http.Request) {
@@ -41,7 +42,7 @@ func DoneTask(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	
+
 	// проверяем, является ли задача периодической
 	if task.Repeat == "" {
 		// если задача одноразовая, удаляем её из базы
