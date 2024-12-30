@@ -8,6 +8,8 @@ import (
 	"todolist/app/internal/rules"
 )
 
+const limit = 50
+
 // получение списка задач
 func GetTasks(w http.ResponseWriter, r *http.Request) {
 	// проверяем, что метод ГЕТ
@@ -22,7 +24,7 @@ func GetTasks(w http.ResponseWriter, r *http.Request) {
 	search := r.URL.Query().Get("search")
 
 	// задаем переменные - лимит вывода, запрос, слайс аргументов к нему
-	var limit = 50
+
 	var query string
 	var args []interface{}
 
