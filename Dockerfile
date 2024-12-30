@@ -1,5 +1,8 @@
 # этап сборки
-FROM golang:1.23.4 AS builder
+FROM golang:1.23.4-alpine AS builder
+
+# устанавливаем необходимые инструменты
+RUN apk add --no-cache git
 
 # собираем для ARM64
 ENV CGO_ENABLED=0
@@ -18,8 +21,8 @@ COPY . .
 # собираем Go-приложение
 RUN go build -o /my_app ./app/cmd
 
-# ЭТАП РАБОЧЕЙ СРЕДЫ (runtime)
-FROM ubuntu:20.04
+# этап рабочей среды (runtime)
+FROM alpine:latest
 
 WORKDIR /app
 
@@ -32,8 +35,8 @@ COPY web ./web
 # создаём директорию для базы данных
 RUN mkdir -p /app/database
 
-# открываем порт для приложения
-EXPOSE 7540
+# копируем .env файл
+COPY .env .env
 
 # запускаем приложение
-CMD ["/app/my_app"]
+CMD ["sh", "-c", "/app/my_app"]

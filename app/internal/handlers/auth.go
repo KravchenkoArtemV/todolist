@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/golang-jwt/jwt/v4"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/golang-jwt/jwt/v4"
 )
 
 // секретный ключ для подписи токенов, получаем его из переменной окружения
