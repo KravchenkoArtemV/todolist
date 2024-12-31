@@ -54,18 +54,7 @@ ___
 
 Проект содержит пакет tests для проверки функциональности.
 Настройки находятся в файле tests/settings.go
-
-```
-var Port = 7540
-
-var DBFile = "../scheduler.db"
-
-var FullNextDate = true
-
-var Search = true
-
-var Token = ""
-```
+___
 
 
 Инструкция запуска для запуска Docker для macOS на чипах М1,М2,М3:
@@ -76,7 +65,6 @@ var Token = ""
   -p 7540:7540 \
   -v "${PWD}/database:/app/database" \
   todo-list-app
-- docker cp .env todo-list-app:/app/.env
 ```
 screenshot экрана в корне проекта
 ___
