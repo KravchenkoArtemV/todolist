@@ -24,7 +24,7 @@ func count(db *sqlx.DB) (int, error) {
 
 func openDB(t *testing.T) *sqlx.DB {
 	dbfile := DBFile
-	envFile := "os.Getenv(\"TODO_DBFILE\")"
+	envFile := "../database/scheduler.db"
 	if len(envFile) > 0 {
 		dbfile = envFile
 	}

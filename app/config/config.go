@@ -12,6 +12,7 @@ import (
 )
 
 var DB *sql.DB
+var PasswordFromEnv string
 
 // загрузка переменных окружения
 func LoadEnv() {

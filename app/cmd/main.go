@@ -26,7 +26,7 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
-
+	config.PasswordFromEnv = os.Getenv("TODO_PASSWORD")
 	// запускаем роутер + логгер для запросов + восстановитель паники, чтобы не падал сервер
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
